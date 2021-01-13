@@ -34,9 +34,9 @@ var (
 func banner() {
 	fmt.Fprintln(os.Stderr, aurora.BrightBlue(`
      _           _____                           _____
- ___(_) __ _ ___|___ / ___  ___ __ _ _ __  _ __ |___ / _ __ 
+ ___(_) __ _ ___|___ / ___  ___ __ _ _ __  _ __ |___ / _ __
 / __| |/ _`+"`"+` / __| |_ \/ __|/ __/ _`+"`"+` | '_ \| '_ \  |_ \| '__|
-\__ \ | (_| \__ \___) \__ \ (_| (_| | | | | | | |___) | |   
+\__ \ | (_| \__ \___) \__ \ (_| (_| | | | | | | |___) | |
 |___/_|\__, |___/____/|___/\___\__,_|_| |_|_| |_|____/|_| v1.1.0
        |___/
 `).Bold())
@@ -116,11 +116,11 @@ func main() {
 		defer res.Body.Close()
 
 		if res.StatusCode == http.StatusNotFound {
-			fmt.Println(au.BrightRed("-").Bold(), bucket, "[", au.BrightRed("Not Found").Bold(), "]")
+			fmt.Println(au.BrightRed("-").Bold(), sigs3scann3r.Format(bucket, "name"), "[", au.BrightRed("Not Found").Bold(), "]")
 			continue
 		}
 
-		fmt.Println(au.BrightGreen("+").Bold(), bucket)
+		fmt.Println(au.BrightGreen("+").Bold(), sigs3scann3r.Format(bucket, "name"))
 
 		// Extract Region
 		region := res.Header.Get("X-Amz-Bucket-Region")
@@ -135,7 +135,7 @@ func main() {
 
 		// Get bucket ACL
 		aclResult, err := scanner.Service.GetBucketAcl(&s3.GetBucketAclInput{
-			Bucket: aws.String(bucket),
+			Bucket: aws.String(sigs3scann3r.Format(bucket, "name")),
 		})
 		if err != nil {
 			errorf(err.Error(), co.verbose)
@@ -184,7 +184,7 @@ func main() {
 				fmt.Println("       ", au.BrightGreen("+").Bold(), *item.Key, au.BrightGreen("size:"), *item.Size, au.BrightGreen("last_modified:"), *item.LastModified)
 
 				if co.dump {
-					output := co.output + "/" + bucket + "/" + *item.Key
+					output := co.output + "/" + sigs3scann3r.Format(bucket, "name") + "/" + *item.Key
 
 					if _, err := os.Stat(output); os.IsNotExist(err) {
 						directory, _ := path.Split(output)
