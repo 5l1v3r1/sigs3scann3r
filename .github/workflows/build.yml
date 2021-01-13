@@ -23,4 +23,4 @@ jobs:
             -
                 name: Build
                 run: go build -v .
-                working-directory: cmd/s3/
+                working-directory: cmd/sigs3scann3r/
