@@ -24,7 +24,7 @@ $ sigs3scann3r -h
  ___(_) __ _ ___|___ / ___  ___ __ _ _ __  _ __ |___ / _ __ 
 / __| |/ _` / __| |_ \/ __|/ __/ _` | '_ \| '_ \  |_ \| '__|
 \__ \ | (_| \__ \___) \__ \ (_| (_| | | | | | | |___) | |   
-|___/_|\__, |___/____/|___/\___\__,_|_| |_|_| |_|____/|_| v1.1.0
+|___/_|\__, |___/____/|___/\___\__,_|_| |_|_| |_|____/|_| v1.1.1
        |___/
 
 USAGE:
@@ -37,6 +37,11 @@ OPTIONS:
   -o             buckets dump directory (default: ./buckets)
   -v             verbose mode
 ```
+
+sigs3scann3r takes buckets in the format:
+* name - e.g. `flaws.cloud`
+* path style - e.g `https://s3.amazonaws.com/flaws.cloud`
+* virtual hosted style - e.g `flaws.cloud.s3.amazonaws.com`
 
 ## Installation
 
